@@ -1,0 +1,598 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Custom Font */
+@font-face {
+    font-family: 'SportingGrotesque';
+    src: url('./fonts/SportingGrotesque-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --bg-color: #e7e5d5;
+    --text-color: #1a1a1a;
+    --text-light: #4a4a4a;
+    --shadow-light: #ffffff;
+    --shadow-dark: #a3b1c6;
+    --primary-color: #667eea;
+    --success-color: #48bb78;
+    --error-color: #f56565;
+    --font-family: 'SportingGrotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--bg-color);
+    min-height: 100vh;
+    color: var(--text-color);
+    padding-top: 20px; /* Reduced space for macOS window controls */
+    -webkit-app-region: no-drag; /* Make body scrollable */
+}
+
+/* Add a dedicated drag area at the very top */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    -webkit-app-region: drag;
+    z-index: 9999;
+    background: transparent;
+}
+
+/* Make header and top area draggable for moving window */
+header {
+    -webkit-app-region: drag;
+    position: relative;
+    z-index: 1;
+}
+
+/* Make interactive elements non-draggable */
+input, button, .info-card, .format-btn, .quality-btn, .log-content, .download-log, .container, main {
+    -webkit-app-region: no-drag;
+}
+
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--text-color);
+    background: var(--bg-color);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+header h1 {
+    font-size: 2em;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+/* Logo styling - uncomment when you add logo */
+/*
+.logo {
+    height: 60px;
+    width: auto;
+    margin-bottom: 8px;
+}
+
+header h1.with-logo {
+    display: none;
+}
+*/
+
+header p {
+    font-size: 1em;
+    color: #989896;
+}
+
+.input-section {
+    background: var(--bg-color);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #d1d5db;
+}
+
+.url-input-group {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+#urlInput {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 15px;
+    font-size: 16px;
+    background: white;
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+}
+
+#urlInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+#getInfoBtn {
+    padding: 15px 25px;
+    background: #989896;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+#getInfoBtn:hover {
+    background: #7a7a78;
+    transform: translateY(1px);
+}
+
+#getInfoBtn:active {
+    background: #6a6a68;
+}
+
+.video-info {
+    background: var(--bg-color);
+    padding: 15px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #d1d5db;
+}
+
+.info-card {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+#thumbnail {
+    width: 150px;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid #d1d5db;
+}
+
+.info-details h3 {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.info-details p {
+    color: var(--text-light);
+    margin-bottom: 4px;
+    font-size: 0.9em;
+}
+
+.download-options {
+    background: var(--bg-color);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #d1d5db;
+}
+
+.format-selection h3 {
+    margin-bottom: 10px;
+    color: var(--text-color);
+    font-size: 1.1em;
+}
+
+.quality-selection {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.quality-selection h4 {
+    margin-bottom: 10px;
+    color: var(--text-color);
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.quality-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.quality-btn {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    background: white;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.quality-btn:hover {
+    border-color: var(--primary-color);
+    background: #f8fafc;
+}
+
+.quality-btn.selected {
+    border-color: var(--success-color);
+    background: var(--success-color);
+    color: white;
+}
+
+.format-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.format-btn {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 15px;
+    background: white;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.format-btn:hover {
+    border-color: var(--primary-color);
+    background: #f8fafc;
+}
+
+.format-btn.selected {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+    color: white;
+}
+
+.folder-selection {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+#selectFolderBtn {
+    padding: 12px 20px;
+    background: #989896;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+#selectFolderBtn:hover {
+    background: #7a7a78;
+    transform: translateY(1px);
+}
+
+#selectFolderBtn:active {
+    background: #6a6a68;
+}
+
+#selectedFolder {
+    color: #718096;
+    font-style: italic;
+}
+
+.download-button {
+    width: 100%;
+    padding: 15px;
+    background: #989896;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.download-button:hover:not(:disabled) {
+    background: #7a7a78;
+    transform: translateY(2px);
+}
+
+.download-button:active:not(:disabled) {
+    background: #6a6a68;
+}
+
+.download-button:disabled {
+    background: #c4c4c2;
+    color: white;
+    cursor: not-allowed;
+}
+
+.progress-section {
+    background: var(--bg-color);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #d1d5db;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success-color), var(--primary-color));
+    border-radius: 10px;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+#progressText {
+    text-align: center;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.status-message {
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.status-message.success {
+    background: #c6f6d5;
+    color: #22543d;
+    border: 1px solid #9ae6b4;
+}
+
+.status-message.error {
+    background: #fed7d7;
+    color: #742a2a;
+    border: 1px solid #feb2b2;
+}
+
+/* Download Log */
+.download-log {
+    background: var(--bg-color);
+    border-radius: 20px;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #d1d5db;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace;
+}
+
+.log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.log-header h3 {
+    color: var(--text-color);
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0;
+    font-family: var(--font-family);
+}
+
+.clear-btn {
+    background: transparent;
+    border: 1px solid #d1d5db;
+    color: var(--text-light);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: var(--font-family);
+    transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+    border-color: var(--error-color);
+    color: var(--error-color);
+}
+
+.log-content {
+    max-height: 120px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for log content */
+.log-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.log-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.log-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.log-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+.log-empty {
+    color: var(--text-light);
+    font-size: 14px;
+    text-align: center;
+    padding: 30px;
+    font-style: italic;
+    font-family: var(--font-family);
+}
+
+.log-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-color);
+    font-size: 11px;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    padding: 8px 10px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.log-entry:last-child {
+    margin-bottom: 0;
+}
+
+.log-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.log-timestamp {
+    color: var(--text-light);
+    font-size: 10px;
+    white-space: nowrap;
+    min-width: 80px;
+}
+
+.log-title {
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+}
+
+.log-format {
+    color: var(--text-light);
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+    min-width: 60px;
+    text-align: right;
+}
+
+.log-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.video-link {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 12px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.video-link:hover {
+    color: var(--primary-color);
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.redownload-btn {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 9px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.redownload-btn:hover {
+    background: #5a67d8;
+    transform: translateY(1px);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    header h1 {
+        font-size: 1.6em;
+    }
+    
+    .url-input-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .format-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .info-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    #thumbnail {
+        width: 100%;
+        max-width: 200px;
+        align-self: center;
+    }
+    
+    .folder-selection {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .input-section, .video-info, .download-options, .progress-section {
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+}

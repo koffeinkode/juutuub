@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JuuTuub - YouTube Nedlaster</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JuuTuub</h1>
+            <p>Last ned bilde og lyd fra Youtube i en fei</p>
+        </header>
+
+        <main>
+            <div class="input-section">
+                <div class="url-input-group">
+                    <input type="text" id="urlInput" placeholder="Lim inn YouTube URL her..." />
+                    <button id="getInfoBtn">Hent info</button>
+                </div>
+            </div>
+
+            <div class="video-info" id="videoInfo" style="display: none;">
+                <div class="info-card">
+                    <img id="thumbnail" src="" alt="Video thumbnail" />
+                    <div class="info-details">
+                        <h3 id="videoTitle"></h3>
+                        <p id="videoUploader"></p>
+                        <p id="videoDuration"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="download-options" id="downloadOptions" style="display: none;">
+                <div class="format-selection">
+                    <h3>Velg format:</h3>
+                    <div class="format-buttons">
+                        <button class="format-btn" data-format="mp4">
+                            📹 MP4 Video
+                        </button>
+                        <button class="format-btn" data-format="mp3">
+                            🎵 MP3 Audio
+                        </button>
+                    </div>
+                    
+                    <div class="quality-selection" id="mp3QualitySection" style="display: none;">
+                        <h4>MP3 Kvalitet:</h4>
+                        <div class="quality-buttons">
+                            <button class="quality-btn" data-quality="128k">128 kbps</button>
+                            <button class="quality-btn" data-quality="192k">192 kbps</button>
+                            <button class="quality-btn selected" data-quality="320k">320 kbps (Høyeste)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="folder-selection">
+                    <button id="selectFolderBtn">📁 Velg nedlastingsmappe</button>
+                    <span id="selectedFolder">Ingen mappe valgt</span>
+                </div>
+
+                <button id="downloadBtn" class="download-button" disabled>
+                    ⬇️ Start nedlasting
+                </button>
+            </div>
+
+            <div class="progress-section" id="progressSection" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="progressText">Klargjør nedlasting...</p>
+            </div>
+
+            <div class="status-message" id="statusMessage"></div>
+
+            <div class="download-log" id="downloadLog">
+                <div class="log-header">
+                    <h3>Nedlastingslogg</h3>
+                    <button id="clearLogBtn" class="clear-btn">Tøm</button>
+                </div>
+                <div class="log-content" id="logContent">
+                    <div class="log-empty">Ingen nedlastinger ennå...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
